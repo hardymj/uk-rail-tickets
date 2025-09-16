@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>UK Train Fare Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./assets/style.css" rel="stylesheet">
+</head>
+<body>
+  <header class="container">
+    <h1>UK Train Fare Finder</h1>
+    <p>Enter your postcode to find nearby stations, pick a destination, and compare prices.</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <form id="search-form">
+        <div class="field-row">
+          <label for="postcode">Postcode</label>
+          <input id="postcode" name="postcode" type="text" placeholder="e.g. SW1A 1AA" required autocomplete="postal-code">
+          <button type="button" id="find-stations" class="btn">Find nearby stations</button>
+          <div class="spinner" id="stations-spinner" hidden></div>
+        </div>
+
+        <div id="nearby-stations" class="nearby">
+          <div class="nearby-header">
+            <h3>Nearby stations</h3>
+            <div class="controls">
+              <label>Limit
+                <select id="nearby-limit">
+                  <option value="5" selected>5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                </select>
+              </label>
+              <label>Within radius
+                <select id="nearby-radius">
+                  <option value="2">2 km</option>
+                  <option value="5" selected>5 km</option>
+                  <option value="10">10 km</option>
+                  <option value="20">20 km</option>
+                </select>
+              </label>
+              <button type="button" id="toggle-select" class="link">Select all</button>
+            </div>
+          </div>
+          <div id="nearby-list" class="nearby-list empty">
+            <p class="muted">No stations yet. Enter a postcode and click “Find nearby stations”.</p>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <label for="destination">Destination</label>
+          <input id="destination" name="destination" type="text" placeholder="Station name or CRS code (e.g. MAN)" required autocomplete="off">
+          <div id="dest-suggestions" class="suggestions"></div>
+        </div>
+
+        <div class="field-row">
+          <label>Journey
+            <div class="radio-row">
+              <label class="radio">
+                <input type="radio" name="journey-type" value="single" id="jt-single" checked> Single
+              </label>
+              <label class="radio">
+                <input type="radio" name="journey-type" value="return" id="jt-return"> Return
+              </label>
+            </div>
+          </label>
+
+          <label>Outward date
+            <input type="date" id="out-date">
+          </label>
+          <label>Outward time
+            <input type="time" id="out-time" step="60">
+          </label>
+
+          <label id="ret-date-wrap" hidden>Return date
+            <input type="date" id="ret-date">
+          </label>
+          <label id="ret-time-wrap" hidden>Return time
+            <input type="time" id="ret-time" step="60">
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label for="railcard">Railcard</label>
+          <input id="railcard" name="railcard" type="text" placeholder="Type to search railcards (optional)" autocomplete="off">
+          <div id="railcard-suggestions" class="suggestions"></div>
+        </div>
+
+        <div class="actions">
+          <button id="compare" type="submit" class="btn primary" disabled>Compare fares</button>
+          <div class="spinner" id="fares-spinner" hidden></div>
+          <span id="status" class="status"></span>
+        </div>
+      </form>
+    </section>
+
+    <section id="results" class="card">
+      <h3>Results</h3>
+      <div id="results-body" class="results-body">
+        <p class="muted">Results will appear here.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container muted">
+    <p>
+      Data sources:
+      Stations list © contributors •
+      <a href="https://github.com/davwheat/uk-railway-stations" target="_blank" rel="noreferrer">UK railway stations</a>,
+      Postcode geocoding by <a href="https://postcodes.io" target="_blank" rel="noreferrer">postcodes.io</a>,
+      Fares from <a href="https://www.brfares.com" target="_blank" rel="noreferrer">BR Fares</a>.
+    </p>
+  </footer>
+
+  <script src="./assets/app.js" type="module"></script>
+</body>
+</html>
